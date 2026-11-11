@@ -1,0 +1,48 @@
+{% load static %}
+
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'hdn/css/style.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'bootstrap-autocomplete/bootstrap-autocomplete.js' %}"></script>
+    <script src="{% static 'bootstrap/js/jquery.formset.js' %}"></script>
+    <script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}" referrerpolicy="origin"></script>
+  
+    {{ data|json_script:"json_data" }}
+	
+    <title>HDN</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <div class="row justify-content-center"> -->
+        <!-- <div class="col-8"> -->
+          {% block content %}
+          {% endblock %}
+        <!-- </div>
+      </div> -->
+    </div>
+    {% block script %}
+    {% endblock %}
+    <!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+                   <div class="infodate">
+                    <h6><a href="mailto:helpdesk@dantenetwork.it "> helpdesk@dantenetwork.it</a></h6>
+                    <p>©2020 <a href="https://www.isti.cnr.it/">ISTI-CNR</a></p>
+                   </div>	
+                    
+					<!--<ul class="icons">
+						<li><a href="#" class="icon fa-facebook"></a></li>
+						<li><a href="#" class="icon fa-twitter"></a></li>
+						<li><a href="#" class="icon fa-instagram"></a></li
+                    >-->					
+				</div>
+			</footer>
+  </body>
+</html>

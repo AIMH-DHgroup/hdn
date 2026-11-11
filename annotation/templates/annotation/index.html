@@ -1,0 +1,39 @@
+{% extends 'annotation/base.html' %}
+
+
+{% block content %}
+
+<h1 class="mt-2">Elenco dei commenti</h1>
+<hr class="mt-0 mb-4">
+<input type="text" id="search" placeholder="Search...">
+{% if note_list %}
+<table id="tableNotes">
+    <tr class="header">
+      <th>Commento</th>
+      <th>Note</th>
+      <th>Completate</th>
+    </tr>
+  
+    {% for note in note_list %}
+    <tr>
+        <td><a href="{{ note.idCommentary }}/">{{ note.Commentary }}</a></td>
+        <td>{{ note.Count }}</td>
+        <td>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ note.Done }}%" aria-valuenow="{{ note.Done }}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>{{ note.Done }}%</td>
+    </tr>
+    {% endfor %}
+   
+</table>
+{% else %}
+    <p>Non hai nessun commento assegnato.</p>
+{% endif %}
+
+{% endblock %} 
+{% block script %}
+{% load static %}
+
+<script src="{% static 'hdn/js/search.js' %}"></script>
+{% endblock %} 
+

@@ -1,0 +1,41 @@
+# Credenziali e configurazione locale
+.env
+.env.*
+!.env.example
+.pgpass
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# Ambienti Python e cache
+env/
+venv/
+newenv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Versionamento precedente e file generati
+.svn/
+docs/_build/
+staticfiles/
+*.log
+.DS_Store
+Thumbs.db
+
+# Dati operativi e copie del database
+backups/
+exports/
+annotation/json/
+*.sql
+*.dump
+*.backup
+*.sqlite3
+
+# Archivi: evitare di pubblicare il pacchetto originale con i segreti
+*.zip
+*.tar
+*.tar.gz
+*.tgz
