@@ -160,51 +160,12 @@ Il backup viene scritto in `backups/` accanto allo script, oppure in `BACKUP_DIR
 
 I sorgenti Sphinx originali sono in `docs/`. Con le dipendenze installate e le variabili d'ambiente caricate si può tentare la compilazione con `make -C docs html`; il risultato `docs/_build/` è escluso da Git. I vecchi testi possono contenere istruzioni superate: per configurazione e credenziali seguire questo README.
 
-## Sicurezza e limiti residui
-
-Le credenziali originarie vanno sostituite se ancora valide: password PostgreSQL, chiave Django e token D4Science di esempio. Rimuoverle da questa copia non revoca i valori originali né elimina copie precedentemente condivise.
-
-La preparazione ha rimosso anche le stampe dirette dei token e la loro visualizzazione nella risposta della vista di prova. Rimangono aspetti che richiedono una revisione applicativa prima del deployment: token trasmessi nella query string, viste di prova `auth` e `getusers`, controlli di accesso non uniformi e dipendenze storiche. Il backend D4Science contiene inoltre un `get_user` annidato dentro `authenticate` e alcune viste chiamano `authenticate` con il token come argomento posizionale: questi comportamenti non sono stati modificati e richiedono verifica funzionale.
-
-Non inserire mai token reali negli URL degli esempi, nei messaggi di commit, nelle issue o nella documentazione. Non caricare su GitHub lo ZIP originale né i DOCX originali; le versioni testuali ripulite sono già incluse.
-
-## Pubblicazione su GitHub
-
-1. Estrarre la cartella `hdn` del pacchetto ripulito. Aprire il terminale in questa cartella, dove si trova `manage.py`.
-2. Su <https://github.com/new> creare un repository chiamato, per esempio, `hdn`. Scegliere la visibilità desiderata e lasciare disattivata la creazione iniziale di README, `.gitignore` e licenza: i file del progetto vengono caricati dal computer.
-3. Inizializzare Git e controllare i file selezionati:
-
-   ```bash
-   git init -b main
-   git add .
-   git status --short
-   git diff --cached --stat
-   git diff --cached -- hdn/settings.py postgres_backup.sh .env.example
-   ```
-
-   Verificare che non compaiano `.env`, ambienti Python, `.svn`, backup o allegati originali. Se si è creato `.env`, `git check-ignore .env` deve indicare che viene ignorato.
-
-4. Creare il commit e collegare il repository, sostituendo `TUO-UTENTE` e, se necessario, il nome `hdn`:
-
-   ```bash
-   git commit -m "Importa codice HDN e documentazione"
-   git remote add origin https://github.com/TUO-UTENTE/hdn.git
-   git push -u origin main
-   ```
-
-   Se Git richiede nome ed email, configurarli prima del commit con `git config user.name "Il tuo nome"` e `git config user.email "la-tua-email"`. Per HTTPS usare l'autenticazione GitHub tramite gestore credenziali o token personale; la password dell'account non è utilizzabile per il push. In alternativa usare un URL SSH dopo aver configurato la propria chiave. Non incorporare mai il token nell'URL del remote.
-
-5. Aprire il repository su GitHub e verificare che il README sia visibile. Abilitare secret scanning e push protection se disponibili per il repository.
-
-Per gli aggiornamenti successivi: `git add <file>`, `git commit -m "Descrizione"`, `git push`. Se un segreto viene pubblicato per errore, revocarlo o ruotarlo subito; cancellarlo soltanto dall'ultimo file non lo elimina dalla cronologia Git.
 
 ## Licenza e attribuzioni
 
-Diversi sorgenti dichiarano copyright ISTI-CNR e gli autori indicati nelle intestazioni, con licenza GNU GPL versione 3 o successiva. Le intestazioni sono state conservate. Nell'archivio non è presente un file `LICENSE` generale con il testo integrale: completarlo coerentemente con le indicazioni dei titolari prima di un rilascio formale. Le librerie frontend mantengono le proprie licenze nei file distribuiti; non applicare loro automaticamente una nuova licenza.
+Il software è stato sviluppato da CNR-ISTI ed è distribuito come software open source con licenza Apache 2.0. Le intestazioni di copyright e attribuzione presenti nei sorgenti sono state conservate. Le librerie frontend mantengono le proprie licenze nei file distribuiti; non applicare loro automaticamente la licenza del progetto.
 
 ## Riferimenti
 
 - [Django: versioni e supporto](https://www.djangoproject.com/download/)
 - [Django: campi PostgreSQL storici](https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/)
-- [GitHub: pubblicare codice locale](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
-- [GitHub: rimuovere dati sensibili](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
